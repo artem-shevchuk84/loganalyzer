@@ -8,6 +8,7 @@ import java.util.*;
 
 public class OneWordAnalyzer implements Analyzer<LogFile> {
 
+    //May be implemented as Helper
     private Set<List<LogLine>> printedLines = new HashSet<>();
 
     private List<Integer> linesForIgnore = new ArrayList<>();
@@ -18,8 +19,7 @@ public class OneWordAnalyzer implements Analyzer<LogFile> {
         findSimilar(data);
     }
 
-    private void findSimilar(List<LogLine> logData){
-        List<LogLine> lines = logData;
+    private void findSimilar(List<LogLine> lines){
         if(lines.size() > 1){
             for (int j = 0; j < lines.size(); j++) {
                 Map<Integer, List<LogLine>> linesToPrint = new TreeMap<>();
@@ -37,6 +37,7 @@ public class OneWordAnalyzer implements Analyzer<LogFile> {
                         break;
                     }
                     else {
+                        // place to improve policy for make this code scalable
                         int notEqual = 0;
                         int index = 0;
                         String firstWord = "";
@@ -62,6 +63,7 @@ public class OneWordAnalyzer implements Analyzer<LogFile> {
         }
     }
 
+    //May be implemented as Helper
     private void saveToPrint(LogLine firstLine, Map<Integer, List<LogLine>> linesToPrint, Map<Integer, List<String>> wordsToPrint, LogLine iLine, int index, String firstWord, String anotherWord) {
         List<LogLine> logLines = linesToPrint.get(index);
         if(logLines == null){
@@ -82,6 +84,7 @@ public class OneWordAnalyzer implements Analyzer<LogFile> {
         wordsToPrint.replace(index, words);
     }
 
+    //May be implemented as Helper
     private void printLines(Map<Integer, List<LogLine>> lines, Map<Integer, List<String>> words) {
         if(!lines.isEmpty()) {
             for (List<LogLine> newLines : lines.values()) {
